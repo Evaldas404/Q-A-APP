@@ -1,0 +1,13 @@
+.main {
+  background-color: #b8bdb5;
+  border: 1px solid #d2d4c8;
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.main:hover{
+    background-color: #aaaaaa;
+}
