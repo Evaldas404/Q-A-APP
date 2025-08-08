@@ -1,5 +1,5 @@
 export const headerLinks = [
-  { title: "Ask", link: "#" },
-  { title: "Help others", link: "#" },
+  { title: "Start a Discussion", link: "./content" },
   { title: "About us", link: "#" },
+  { title: "Contact", link: "#" },
 ];

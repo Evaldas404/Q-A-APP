@@ -1,0 +1,53 @@
+.main {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.main::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/003/230/788/large_2x/sets-of-people-talking-or-speaking-to-each-other-vector.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(4px);
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.content h1 {
+  font-size: 2.5rem;
+  color: rgb(11, 0, 49);
+  margin-bottom: 30px;
+  width: 80%;
+}
+
+.registerButton {
+  padding: 16px 32px;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #0044cc;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.registerButton:hover {
+  background-color: #002a80;
+}
