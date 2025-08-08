@@ -1,12 +1,13 @@
-import Template from '@/components/Template/Template'
-import React from 'react'
+import AskQuestion from "@/components/AskQuestion/AskQuestion";
+import Template from "@/components/Template/Template";
+import React from "react";
 
 const index = () => {
   return (
     <Template>
-        <div>asdad</div>
+      <AskQuestion />
     </Template>
-  )
-}
+  );
+};
 
-export default index
+export default index;
