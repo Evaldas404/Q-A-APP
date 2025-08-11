@@ -1,8 +1,13 @@
 import { useState } from "react";
 import styles from "./askQuestion.module.css";
 import { addQuestion } from "@/pages/api/fetch";
+import { Question } from "@/types/question";
 
-const AskQuestion = () => {
+type AskQuestionProps = {
+  onQuestionAdded: (newQuestion: Question) => void;
+};
+
+const AskQuestion = ({ onQuestionAdded }: AskQuestionProps) => {
   const [text, setText] = useState("");
 
   const onAddQuestion = async () => {
@@ -15,6 +20,7 @@ const AskQuestion = () => {
 
       if (response.status === 201) {
         setText("");
+        onQuestionAdded(response.data.question);
 
         return;
       }
@@ -25,13 +31,16 @@ const AskQuestion = () => {
 
   return (
     <div className={styles.main}>
-      <input
-        type="text"
-        placeholder="Ask a question"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button onClick={onAddQuestion}>Submit</button>
+      <h1>Ask a Question</h1>
+      <div className={styles.wrapper}>
+        <input
+          type="text"
+          placeholder="What's on your mind ?"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button onClick={onAddQuestion}>Submit</button>
+      </div>
     </div>
   );
 };

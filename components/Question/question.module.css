@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  gap: 3rem;
+  width: 600px;
+  margin: auto;
+  padding: 1rem;
+}

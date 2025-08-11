@@ -3,6 +3,7 @@
 import styles from "./header.module.css";
 import logo from "../../assets/logo.svg";
 import burgerMenu from "../../assets/burgerMenu.svg";
+import whiteLogo from "../../assets/logoWhite.svg";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import LinkButton from "../Buttons/LinkButton/LinkButton";
@@ -76,6 +77,11 @@ const Header = ({ links }: HeaderProps) => {
           burgerBtnOpen ? styles.mobileNavMenuOpen : ""
         }`}
       >
+          <img
+            src={whiteLogo.src}
+            className={styles.whiteLogoImg}
+            onClick={toggleBurgerBtnOpen}
+          />
         <nav>
           <ul>
             {links.map((link, i) => (

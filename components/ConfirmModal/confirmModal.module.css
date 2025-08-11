@@ -1,0 +1,55 @@
+.main {
+  background-color: rgb(40, 110, 87);
+  position: fixed;
+  width: 50%;
+  height: 300px;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.exitBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.exitBtn img {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.middle {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 2rem;
+}
+
+.bottom button {
+  width: 150px;
+  height: 40px;
+  font-size: 1.5rem;
+  background-color: rgb(72, 84, 74);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bottom button:hover {
+  height: 50px;
+}

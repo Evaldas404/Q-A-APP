@@ -25,3 +25,32 @@ export const addQuestion = async (question: { text: string }) => {
   });
   return response;
 };
+
+export const getAllQuestions = async () => {
+  const response = await axios.get(`${BASE_URL}/questions`, {
+    headers: {
+      Authorization: jwt,
+    },
+  });
+  return response;
+};
+
+export const deleteQuestionById = async (id: string) => {
+  const response = await axios.delete(`${BASE_URL}/questions/${id}`, {
+    headers: {
+      Authorization: jwt,
+    },
+  });
+  return response;
+};
+
+// export const answerQuestion = async (answer: { id: string; text: string }) => {
+//   const response = await axios.post(
+//     `${BASE_URL}/answers/question/${id}`,
+//     answer,
+//     {
+//       headers: { Authorization: jwt },
+//     }
+//   );
+//   return response;
+// };

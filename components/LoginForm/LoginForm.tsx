@@ -30,6 +30,7 @@ const LoginForm = () => {
           router.push("/");
         }, 500);
         setSuccess(true);
+        setError(false);
         return;
       }
     } catch (err) {
@@ -55,11 +56,12 @@ const LoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={loginHandle}>Login</button>
-        {error && (
+        {error ? (
           <p className={styles.errorMessage}>Your email or password is wrong</p>
-        )}
-        {success && (
-          <p className={styles.successMessage}>logged in successfully</p>
+        ) : success ? (
+          <p className={styles.successMessage}>Logged in successfully</p>
+        ) : (
+          " "
         )}
       </div>
     </div>
