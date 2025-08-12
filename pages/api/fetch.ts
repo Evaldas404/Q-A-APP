@@ -19,9 +19,11 @@ export const register = async (registerData: {
   return response;
 };
 
-export const addQuestion = async (question: { text: string }) => {
+export const addQuestion = async (question: { questionText: string }) => {
   const response = await axios.post(`${BASE_URL}/questions`, question, {
-    headers: { Authorization: jwt },
+    headers: {
+      Authorization: jwt,
+    },
   });
   return response;
 };
@@ -36,6 +38,7 @@ export const getAllQuestions = async () => {
 };
 
 export const deleteQuestionById = async (id: string) => {
+  const jwt = Cookies.get("@user_jwt");
   const response = await axios.delete(`${BASE_URL}/questions/${id}`, {
     headers: {
       Authorization: jwt,
@@ -44,13 +47,36 @@ export const deleteQuestionById = async (id: string) => {
   return response;
 };
 
-// export const answerQuestion = async (answer: { id: string; text: string }) => {
-//   const response = await axios.post(
-//     `${BASE_URL}/answers/question/${id}`,
-//     answer,
-//     {
-//       headers: { Authorization: jwt },
-//     }
-//   );
-//   return response;
-// };
+export const answerQuestion = async (
+  questionId: string,
+  answerText: string
+) => {
+  const jwt = Cookies.get("@user_jwt");
+  const response = await axios.post(
+    `${BASE_URL}/answers/question/${questionId}/answers`,
+    { answerText },
+    {
+      headers: { Authorization: jwt },
+    }
+  );
+  return response;
+};
+
+export const getAnswersByQuestionId = async (questionId: string) => {
+  const jwt = Cookies.get("@user_jwt");
+  const response = await axios.get(
+    `${BASE_URL}/answers/question/${questionId}/answers`,
+    {
+      headers: { Authorization: jwt },
+    }
+  );
+  return response;
+};
+
+export const deleteAnswerById = async (id: string) => {
+  const jwt = Cookies.get("@user_jwt");
+  const response = await axios.delete(`${BASE_URL}/answers/${id}`, {
+    headers: { Authorization: jwt },
+  });
+  return response;
+};

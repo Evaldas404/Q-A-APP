@@ -1,6 +1,9 @@
 .main {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: aquamarine;
 }
 
 .question {
@@ -12,4 +15,36 @@
   width: 600px;
   margin: auto;
   padding: 1rem;
+  background-color: aqua;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  gap: 3rem;
+  width: 600px;
+  margin: auto;
+  padding: 1rem;
+}
+
+
+.answerForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  gap: 3rem;
+  width: 600px;
+  align-items: center;
+  padding: 1rem;
+}
+
+.answerForm button{
+  width: 300px;
 }

@@ -1,23 +1,23 @@
-import { deleteQuestionById } from "@/pages/api/fetch";
-import styles from "./question.module.css";
+import { deleteAnswerById } from "@/pages/api/fetch";
+import styles from "./answer.module.css";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import { useState } from "react";
 
 type AnswerCardProps = {
-  text: string;
+  answerText: string;
   id: string;
   onDelete: (id: string) => void;
 };
 
-const AnswerCard = ({ id, text, onDelete }: AnswerCardProps) => {
-  const [deletedIniated, setDeletedIniated] = useState(false);
+const AnswerCard = ({ id, answerText, onDelete }: AnswerCardProps) => {
+  const [deletedInitiated, setDeletedInitiated] = useState(false);
 
   const deleteHandle = async (id: string) => {
     try {
-      const response = await deleteQuestionById(id);
+      const response = await deleteAnswerById(id);
       if (response.status === 200) {
         onDelete(id);
-        setDeletedIniated(false);
+        setDeletedInitiated(false);
       }
     } catch (err) {
       console.log(err);
@@ -26,19 +26,19 @@ const AnswerCard = ({ id, text, onDelete }: AnswerCardProps) => {
 
   return (
     <div className={styles.main}>
-      <h1>{text}</h1>
+      <h1>{answerText}</h1>
       <button
         className={styles.deleteBtn}
         onClick={() => {
-          setDeletedIniated(true);
+          setDeletedInitiated(true);
         }}
       >
         Delete
       </button>
-      {deletedIniated && (
+      {deletedInitiated && (
         <ConfirmModal
           title="Do you really want to delete ?"
-          onCancel={() => setDeletedIniated(false)}
+          onCancel={() => setDeletedInitiated(false)}
           onConfirm={() => deleteHandle(id)}
         />
       )}

@@ -8,18 +8,18 @@ type AskQuestionProps = {
 };
 
 const AskQuestion = ({ onQuestionAdded }: AskQuestionProps) => {
-  const [text, setText] = useState("");
+  const [questionText, setQuestionText] = useState("");
 
   const onAddQuestion = async () => {
     try {
       const question = {
-        text: text,
+        questionText: questionText,
       };
 
       const response = await addQuestion(question);
 
       if (response.status === 201) {
-        setText("");
+        setQuestionText("");
         onQuestionAdded(response.data.question);
 
         return;
@@ -36,8 +36,8 @@ const AskQuestion = ({ onQuestionAdded }: AskQuestionProps) => {
         <input
           type="text"
           placeholder="What's on your mind ?"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={questionText}
+          onChange={(e) => setQuestionText(e.target.value)}
         />
         <button onClick={onAddQuestion}>Submit</button>
       </div>

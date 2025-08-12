@@ -1,8 +1,14 @@
-import { deleteQuestionById } from "@/pages/api/fetch";
+import {
+  deleteQuestionById,
+  answerQuestion,
+  getAnswersByQuestionId,
+  deleteAnswerById,
+} from "@/pages/api/fetch";
 import styles from "./question.module.css";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Answer } from "@/types/answer";
+import AnswerCard from "../Answer/Answer";
 
 type QuestionProps = {
   text: string;
@@ -12,38 +18,47 @@ type QuestionProps = {
 };
 
 const QuestionCard = ({ id, text, onDelete, onAnswerAdded }: QuestionProps) => {
-  const [deletedIniated, setDeletedIniated] = useState(false);
+  const [deletedInitiated, setDeletedInitiated] = useState(false);
   const [answerText, setAnswerText] = useState("");
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
-  const deleteHandle = async (id: string) => {
+  useEffect(() => {
+    getAnswersByQuestionId(id).then((res) => setAnswers(res.data.answers));
+  }, [id]);
+
+  const deleteHandle = async () => {
     try {
       const response = await deleteQuestionById(id);
       if (response.status === 200) {
         onDelete(id);
-        setDeletedIniated(false);
+        setDeletedInitiated(false);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const onAddAnswer = async (id: string) => {
+  const onAddAnswer = async () => {
     try {
-      const answer = {
-        text: answerText,
-        id: id,
-      };
-
-      const response = await answerQuestion(answer);
-
+      const response = await answerQuestion(id, answerText);
       if (response.status === 201) {
         setAnswerText("");
-        onAnswerAdded(response.data.answer);
-
-        return;
+        setAnswers((prev) => [...prev, response.data.answer]);
+        onAnswerAdded(response.data);
       }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const answerDeleteHandle = async (answerId: string) => {
+    try {
+      const response = await deleteAnswerById(answerId);
+      if (response.status === 200) {
+        setAnswers((prev) => prev.filter((a) => a.id !== answerId));
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -53,27 +68,37 @@ const QuestionCard = ({ id, text, onDelete, onAnswerAdded }: QuestionProps) => {
         <h1>{text}</h1>
         <button
           className={styles.deleteBtn}
-          onClick={() => {
-            setDeletedIniated(true);
-          }}
+          onClick={() => setDeletedInitiated(true)}
         >
           Delete
         </button>
-        {deletedIniated && (
+        {deletedInitiated && (
           <ConfirmModal
-            title="Do you really want to delete ?"
-            onCancel={() => setDeletedIniated(false)}
-            onConfirm={() => deleteHandle(id)}
+            title="Do you really want to delete this question?"
+            onCancel={() => setDeletedInitiated(false)}
+            onConfirm={deleteHandle}
           />
         )}
       </div>
-      <input
-        type="text"
-        placeholder="Your oppinion"
-        value={answerText}
-        onChange={(e) => setAnswerText(e.target.value)}
-      />
-      <button onClick={() => onAddAnswer(id)}>Submit</button>
+      <div className={styles.answers}>
+        {answers.map((a) => (
+          <AnswerCard
+            key={a.id}
+            id={a.id}
+            answerText={a.answerText}
+            onDelete={answerDeleteHandle}
+          />
+        ))}
+      </div>
+
+      <div className={styles.answerForm}>
+        <input
+          value={answerText}
+          onChange={(e) => setAnswerText(e.target.value)}
+          placeholder="Type your answer..."
+        />
+        <button onClick={onAddAnswer}>Post Answer</button>
+      </div>
     </div>
   );
 };

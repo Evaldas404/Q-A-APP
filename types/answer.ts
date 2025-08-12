@@ -1,3 +1,4 @@
 export type Answer = {
-  text: string;
+  id: string;
+  answerText: string;
 };

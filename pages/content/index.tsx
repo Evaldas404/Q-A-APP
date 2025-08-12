@@ -5,9 +5,11 @@ import { getAllQuestions } from "../api/fetch";
 import axios from "axios";
 import { Question } from "@/types/question";
 import QuestionWrapper from "@/components/QuestionWrapper/QuestionWrapper";
+import { Answer } from "@/types/answer";
 
 const ContentPage = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
   const fetchQuestions = async () => {
     try {
@@ -35,7 +37,11 @@ const ContentPage = () => {
   return (
     <Template>
       <AskQuestion onQuestionAdded={addNewQuestion} />
-      <QuestionWrapper questions={questions} onDelete={handleDelete} />
+      <QuestionWrapper
+        questions={questions}
+        onDelete={handleDelete}
+        answers={answers}
+      />
     </Template>
   );
 };
